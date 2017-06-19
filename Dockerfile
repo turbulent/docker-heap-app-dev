@@ -34,6 +34,8 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 RUN php /tmp/composer-installer.php --version=1.3.2 --install-dir=/usr/local/bin --filename=composer
+RUN mkdir -p /home/heap/.composer
+RUN chown -R heap:www-data /home/heap
 
 RUN npm install -g node-gyp && \
   npm cache clean
