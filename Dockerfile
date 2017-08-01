@@ -1,6 +1,6 @@
 FROM turbulent/heap-app:4.0.0
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 4.0.0
+ENV heap-app-dev 5.0.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -9,8 +9,8 @@ COPY nodesource.gpg.key /tmp/
  
 # Adding nodesource repository before update
 RUN apt-key add /tmp/nodesource.gpg.key && \
- echo 'deb https://deb.nodesource.com/node_6.x trusty main' > /etc/apt/sources.list.d/nodesource.list && \
- echo 'deb-src https://deb.nodesource.com/node_6.x trusty main' >> /etc/apt/sources.list.d/nodesource.list 
+ echo 'deb https://deb.nodesource.com/node_8.x trusty main' > /etc/apt/sources.list.d/nodesource.list && \
+ echo 'deb-src https://deb.nodesource.com/node_8.x trusty main' >> /etc/apt/sources.list.d/nodesource.list 
 
 RUN apt-get update && \
   apt-get -y install \
@@ -33,12 +33,12 @@ RUN apt-get update && \
     graphviz && \
   rm -rf /var/lib/apt/lists/*
 
-RUN php /tmp/composer-installer.php --version=1.3.2 --install-dir=/usr/local/bin --filename=composer
+RUN php /tmp/composer-installer.php --version=1.4.2 --install-dir=/usr/local/bin --filename=composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
 RUN npm install -g node-gyp && \
-  npm cache clean
+  npm cache verify
 
 
 # Install Symfony utility
