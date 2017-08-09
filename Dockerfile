@@ -1,6 +1,6 @@
 FROM turbulent/heap-app:4.0.0
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 5.0.0
+ENV heap-app-dev 5.0.1
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -40,11 +40,13 @@ RUN chown -R heap:www-data /home/heap
 RUN npm install -g node-gyp && \
   npm cache verify
 
-
 # Install Symfony utility
 RUN mkdir -p /usr/local/bin && \
   curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
   chmod a+x /usr/local/bin/symfony
+
+# Install xdebug config
+COPY xdebug.ini /etc/php/7.1/mods-available/xdebug.ini
 
 # Webgrind
 ADD webgrind-v1.5.0.zip /var/www/
