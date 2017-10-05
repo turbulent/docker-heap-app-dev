@@ -1,6 +1,6 @@
 FROM turbulent/heap-app:4.0.0
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 5.0.1
+ENV heap-app-dev 5.1.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -40,10 +40,28 @@ RUN chown -R heap:www-data /home/heap
 RUN npm install -g node-gyp && \
   npm cache verify
 
+# Install PHPUnit
+RUN curl -LsS https://phar.phpunit.de/phpunit-6.3.phar -o /usr/local/bin/phpunit && \
+  chmod a+x /usr/local/bin/phpunit
+
+# Install Codeception
+RUN curl -LsS http://codeception.com/releases/2.3.6/codecept.phar -o /usr/local/bin/codecept && \
+  chmod a+x /usr/local/bin/codecept
+
+# Install Codesniffer
+RUN curl -LsS https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o /usr/local/bin/phpcs && \
+  curl -LsS https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar -o /usr/local/bin/phpcbf && \
+  chmod a+x /usr/local/bin/phpcs && \
+  chmod a+x /usr/local/bin/phpcbf
+
 # Install Symfony utility
 RUN mkdir -p /usr/local/bin && \
   curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
   chmod a+x /usr/local/bin/symfony
+
+# Install phpDocumentor
+RUN curl -LsS http://phpdoc.org/phpDocumentor.phar -o /usr/local/bin/phpdoc && \
+  chmod a+x /usr/local/bin/phpdoc
 
 # Install xdebug config
 COPY xdebug.ini /etc/php/7.1/mods-available/xdebug.ini
