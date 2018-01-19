@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2018-01-19
+
+### Changed
+- Upgrade base image to `turbulent/heap-app:4.1.0`.
+- Node.js: 8.9.4
+- `npm`: 5.6.0
+- `phpcs` and `phpcbf`: v3.2.2
+
 ## [5.1.0] - 2017-10-05
 ### Added
 - PHAR installs in `/usr/local/bin`:

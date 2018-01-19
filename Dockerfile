@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:4.0.0
+FROM turbulent/heap-app:4.1.0
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 5.1.0
+ENV heap-app-dev 5.2.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
