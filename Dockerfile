@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:4.1.0
+FROM turbulent/heap-app:5.0.1
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 5.2.0
+ENV heap-app-dev 6.0.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -29,11 +29,12 @@ RUN apt-get update && \
     mysql-client \
     nodejs \
     icu-devtools \
-    php7.1-xdebug \
+    php-ast \
+    php-xdebug \
     graphviz && \
   rm -rf /var/lib/apt/lists/*
 
-RUN php /tmp/composer-installer.php --version=1.4.2 --install-dir=/usr/local/bin --filename=composer
+RUN php /tmp/composer-installer.php --version=1.6.3 --install-dir=/usr/local/bin --filename=composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
@@ -41,11 +42,11 @@ RUN npm install -g node-gyp && \
   npm cache verify
 
 # Install PHPUnit
-RUN curl -LsS https://phar.phpunit.de/phpunit-6.3.phar -o /usr/local/bin/phpunit && \
+RUN curl -LsS https://phar.phpunit.de/phpunit-7.phar -o /usr/local/bin/phpunit && \
   chmod a+x /usr/local/bin/phpunit
 
 # Install Codeception
-RUN curl -LsS http://codeception.com/releases/2.3.6/codecept.phar -o /usr/local/bin/codecept && \
+RUN curl -LsS http://codeception.com/releases/2.4.0/codecept.phar -o /usr/local/bin/codecept && \
   chmod a+x /usr/local/bin/codecept
 
 # Install Codesniffer
@@ -54,17 +55,12 @@ RUN curl -LsS https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar -o /usr/loc
   chmod a+x /usr/local/bin/phpcs && \
   chmod a+x /usr/local/bin/phpcbf
 
-# Install Symfony utility
-RUN mkdir -p /usr/local/bin && \
-  curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony && \
-  chmod a+x /usr/local/bin/symfony
-
 # Install phpDocumentor
 RUN curl -LsS http://phpdoc.org/phpDocumentor.phar -o /usr/local/bin/phpdoc && \
   chmod a+x /usr/local/bin/phpdoc
 
 # Install xdebug config
-COPY xdebug.ini /etc/php/7.1/mods-available/xdebug.ini
+COPY xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 
 # Webgrind
 ADD webgrind-v1.5.0.zip /var/www/
