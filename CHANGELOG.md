@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2018-03-05
+
+### Changed
+- Upgraded base image to heap-app:5.0.1 for PHP 7.2 upgrade
+- Composer: 1.6.3
+- PHPUnit: 7.0.0
+- Codeception: 2.4.0
+- Xdebug: 2.6.0
+
+### Added
+- php-ast extension (to be able to run the [phan](https://github.com/phan/phan) static analyzer)
+
+### Removed
+- Symfony Installer
+
 ## [5.2.0] - 2018-01-19
 
 ### Changed
