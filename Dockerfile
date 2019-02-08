@@ -1,16 +1,16 @@
 FROM turbulent/heap-app:5.0.1
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 6.0.0
+ENV heap-app-dev 6.1.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
 COPY composer-installer.php /tmp/
 COPY nodesource.gpg.key /tmp/
- 
+
 # Adding nodesource repository before update
 RUN apt-key add /tmp/nodesource.gpg.key && \
- echo 'deb https://deb.nodesource.com/node_8.x trusty main' > /etc/apt/sources.list.d/nodesource.list && \
- echo 'deb-src https://deb.nodesource.com/node_8.x trusty main' >> /etc/apt/sources.list.d/nodesource.list 
+  echo 'deb https://deb.nodesource.com/node_10.x trusty main' > /etc/apt/sources.list.d/nodesource.list && \
+  echo 'deb-src https://deb.nodesource.com/node_10.x trusty main' >> /etc/apt/sources.list.d/nodesource.list
 
 RUN apt-get update && \
   apt-get -y install \
