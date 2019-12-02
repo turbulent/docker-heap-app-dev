@@ -34,7 +34,7 @@ RUN apt-get update && \
     graphviz && \
   rm -rf /var/lib/apt/lists/*
 
-RUN php /tmp/composer-installer.php --version=1.6.3 --install-dir=/usr/local/bin --filename=composer
+RUN php /tmp/composer-installer.php --version=1.9.1 --install-dir=/usr/local/bin --filename=composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
