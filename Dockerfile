@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:5.3.5
+FROM turbulent/heap-app:5.3.6
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 6.2.0
+ENV heap-app-dev 6.2.2
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,24 +14,24 @@ RUN apt-key add /tmp/nodesource.gpg.key && \
 
 RUN apt-get update && \
   apt-get -y install \
-    libedit-dev \
-    rlwrap \
-    curl \
-    telnet \
-    finger \
-    wget \
-    vim \
-    entr \
-    build-essential \
-    m4 \
-    git-core \
-    python-sphinx \
-    mysql-client \
-    nodejs \
-    icu-devtools \
-    php-ast \
-    php-xdebug \
-    graphviz && \
+  libedit-dev \
+  rlwrap \
+  curl \
+  telnet \
+  finger \
+  wget \
+  vim \
+  entr \
+  build-essential \
+  m4 \
+  git-core \
+  python-sphinx \
+  mysql-client \
+  nodejs \
+  icu-devtools \
+  php-ast \
+  php-xdebug \
+  graphviz && \
   rm -rf /var/lib/apt/lists/*
 
 RUN php /tmp/composer-installer.php --version=1.9.1 --install-dir=/usr/local/bin --filename=composer
