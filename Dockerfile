@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:5.3.8
+FROM turbulent/heap-app:6.0.0
 MAINTAINER Benoit Beausejour <b@turbulent.ca>
-ENV heap-app-dev 6.2.4
+ENV heap-app-dev 7.0.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -25,9 +25,10 @@ RUN apt-get update && \
     build-essential \
     m4 \
     git-core \
-    python-sphinx \
+    python3-sphinx \
     mysql-client \
     nodejs \
+    npm \
     icu-devtools \
     php7.2-ast \
     php7.2-xdebug \
