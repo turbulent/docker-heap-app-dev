@@ -1,5 +1,5 @@
 FROM turbulent/heap-app:6.0.1
-MAINTAINER Benoit Beausejour <b@turbulent.ca>
+LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
 ENV heap-app-dev 7.0.1
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -7,13 +7,17 @@ ENV DEBIAN_FRONTEND noninteractive
 COPY composer-installer.php /tmp/
 COPY nodesource.gpg.key /tmp/
 
-# Adding nodesource repository before update
-RUN apt-key add /tmp/nodesource.gpg.key && \
-  echo 'deb https://deb.nodesource.com/node_10.x trusty main' > /etc/apt/sources.list.d/nodesource.list && \
-  echo 'deb-src https://deb.nodesource.com/node_10.x trusty main' >> /etc/apt/sources.list.d/nodesource.list
-
 RUN apt-get update && \
+  apt-get install -y \
+    ca-certificates \
+    gnupg && \
+  apt-key add /tmp/nodesource.gpg.key && \
+  echo 'deb https://deb.nodesource.com/node_14.x focal main' > /etc/apt/sources.list.d/nodesource.list && \
+  echo 'deb-src https://deb.nodesource.com/node_14.x focal main' >> /etc/apt/sources.list.d/nodesource.list && \
+  apt-get update && \
   apt-get -y install \
+    openssl \
+    ca-certificates \
     libedit-dev \
     rlwrap \
     curl \
@@ -28,7 +32,6 @@ RUN apt-get update && \
     python3-sphinx \
     mysql-client \
     nodejs \
-    npm \
     icu-devtools \
     php7.2-ast \
     php7.2-xdebug \
