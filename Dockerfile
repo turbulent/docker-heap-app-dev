@@ -35,7 +35,8 @@ RUN apt-get update && \
     icu-devtools \
     php7.2-ast \
     php7.2-xdebug \
-    graphviz && \
+    graphviz \
+    rsync && \
   apt-get autoremove && \
   rm -rf /var/lib/apt/lists/*
 
