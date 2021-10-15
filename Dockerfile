@@ -1,6 +1,6 @@
 FROM turbulent/heap-app:6.0.2
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.0.3
+ENV heap-app-dev 7.0.4
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -36,7 +36,8 @@ RUN apt-get update && \
     php7.2-ast \
     php7.2-xdebug \
     graphviz \
-    rsync && \
+    rsync \
+    libpng-dev && \
   apt-get autoremove && \
   rm -rf /var/lib/apt/lists/*
 
