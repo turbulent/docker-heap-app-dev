@@ -1,10 +1,9 @@
 FROM turbulent/heap-app:6.0.2
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.0.4
+ENV heap-app-dev 7.0.5
 
 ENV DEBIAN_FRONTEND noninteractive
 
-COPY composer-installer.php /tmp/
 COPY nodesource.gpg.key /tmp/
 
 RUN apt-get update && \
@@ -41,7 +40,8 @@ RUN apt-get update && \
   apt-get autoremove && \
   rm -rf /var/lib/apt/lists/*
 
-RUN php /tmp/composer-installer.php --version=1.9.1 --install-dir=/usr/local/bin --filename=composer
+# Install Composer
+COPY --from=composer:2.1.9 /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
