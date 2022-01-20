@@ -41,7 +41,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer:2.1.9 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.2.4 /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
