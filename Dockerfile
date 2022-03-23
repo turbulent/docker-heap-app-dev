@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:6.0.2
+FROM turbulent/heap-app:6.0.3
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.0.5
+ENV heap-app-dev 7.0.6
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -41,7 +41,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer:2.1.9 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.2.9 /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
