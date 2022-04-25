@@ -1,6 +1,6 @@
 FROM turbulent/heap-app:6.0.3
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.0.6
+ENV heap-app-dev 7.0.7
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -34,16 +34,42 @@ RUN apt-get update && \
     icu-devtools \
     php7.2-ast \
     php7.2-xdebug \
+    php7.2-dev \
+    php-pear \
     graphviz \
     rsync \
+    protobuf-compiler \
     libpng-dev && \
-  apt-get autoremove && \
+  pecl install protobuf && \
+  apt-get remove -y php-pear php7.2-dev && \
+  apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer:2.2.9 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.3.5 /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
+
+# Install Buf
+COPY --from=bufbuild/buf:1.4.0 /usr/local/bin/buf /usr/local/bin/buf
+
+# Install grpc_php_plugin, move it to protoc-gen-grpc-php as Buf looks for protoc-gen-PLUGIN_NAME in PATH
+RUN apt-get update && \
+    apt-get install -y && \
+    apt-get -y install cmake && \
+    cd /tmp && \
+    git clone --depth 1 -b v1.45.2 https://github.com/grpc/grpc && \
+    cd grpc && \
+    git submodule update --init && \
+    mkdir -p cmake/build && \
+    cd cmake/build && \
+    cmake ../.. && \
+    make protoc grpc_php_plugin && \
+    mv grpc_php_plugin /usr/bin/protoc-gen-grpc-php && \
+    rm -rf /tmp/* && \
+    apt-get remove -y cmake && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g node-gyp && \
   npm cache verify
