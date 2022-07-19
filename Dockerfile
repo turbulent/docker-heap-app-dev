@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:6.0.3
+FROM turbulent/heap-app:6.1.0
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.0.7
+ENV heap-app-dev 7.1.0
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -32,21 +32,21 @@ RUN apt-get update && \
     mysql-client \
     nodejs \
     icu-devtools \
-    php7.2-ast \
-    php7.2-xdebug \
-    php7.2-dev \
+    php7.4-ast \
+    php7.4-xdebug \
+    php7.4-dev \
     php-pear \
     graphviz \
     rsync \
     protobuf-compiler \
     libpng-dev && \
   pecl install protobuf && \
-  apt-get remove -y php-pear php7.2-dev && \
+  apt-get remove -y php-pear php7.4-dev && \
   apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer:2.3.5 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.3.10 /usr/bin/composer /usr/local/bin/composer
 RUN mkdir -p /home/heap/.composer
 RUN chown -R heap:www-data /home/heap
 
@@ -93,7 +93,7 @@ RUN curl -LsS http://phpdoc.org/phpDocumentor.phar -o /usr/local/bin/phpdoc && \
   chmod a+x /usr/local/bin/phpdoc
 
 # Install xdebug config
-COPY xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+COPY xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
 
 # Webgrind
 ADD webgrind-v1.5.0.zip /var/www/
