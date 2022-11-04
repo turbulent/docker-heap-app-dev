@@ -1,6 +1,6 @@
-FROM turbulent/heap-app:6.1.0
+FROM turbulent/heap-app:6.1.1
 LABEL MAINTAINER="Benoit Beausejour <b@turbulent.ca>"
-ENV heap-app-dev 7.1.0
+ENV heap-app-dev 7.1.1
 
 ENV DEBIAN_FRONTEND noninteractive
 
